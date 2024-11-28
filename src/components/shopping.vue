@@ -1,41 +1,45 @@
 <template>
-  <div>
+  <div class="wrap">
     <h1>쇼핑 목록</h1>
     
     <!-- 새 항목 추가 -->
-    <input v-model="newItem" placeholder="새로운 항목 입력" />
-    <button @click="addItem">추가</button>
+    <input class="main-input" v-model="newItem" placeholder="새로운 항목 입력" />
+    <button class="add-button" @click="addItem">추가</button>
 
     <!-- 조건부 렌더링 -->
-    <p v-if="shoppingList.length > 0">
+    <p v-if="shoppingList.length > 0" class="main-text">
       현재 {{ shoppingList.length }}개의 물품이 있습니다:
     </p>
-    <p v-else>현재 쇼핑 목록이 비어 있습니다.</p>
+    <p v-else class="main-text">현재 쇼핑 목록이 비어 있습니다.</p>
 
     <!-- 리스트 렌더링 -->
     <ul class="Ul">
-      <li v-for="(item, index) in shoppingList" :key="index">
-        <input
-          type="checkbox"
-          :checked="item.isCompleted"
-          @change="toggleComplete(index)"
-        />
-        <!-- 완료/미완료 표시 -->
-        <template v-if="item.isEditing">
+      <li v-for="(item, index) in shoppingList" :key="index" class='list-wrap'>
           <input
-            v-model="item.text"
-            placeholder="수정할 내용 입력"
+            type="checkbox"
+            :checked="item.isCompleted"
+            @change="toggleComplete(index)"
+            class='checked-box'
           />
-          <button @click="finishEditing(index)">확인</button>
-          <button @click="cancelEditing(index)">취소</button>
+        <!-- 완료/미완료 표시 -->
+        <template v-if="item.isEditing" >
+            <input
+              v-model="item.text"
+              placeholder="수정할 내용 입력"
+            />
+            <button @click="finishEditing(index)">확인</button>
+            <button @click="cancelEditing(index)">취소</button>
+          </template>
+          <template v-else>
+            
+            {{ item.text }}
+            <span v-if="item.isCompleted">(완료)</span>
+            <span v-else>(미완료)</span>
+            <button @click="removeItem(index)">삭제</button>
+            <button @click="startEditing(index)">수정</button>
+      
         </template>
-        <template v-else>
-          {{ item.text }}
-          <span v-if="item.isCompleted">(완료)</span>
-          <span v-else>(미완료)</span>
-          <button @click="removeItem(index)">삭제</button>
-          <button @click="startEditing(index)">수정</button>
-        </template>
+
       </li>
     </ul>
   </div>
@@ -91,5 +95,46 @@ export default {
 <style scoped>
 .Ul {
   list-style-type: none;
+  width:42vw;
+  height:100vh;
+  border: 1px solid;
+  border:none;
+  box-shadow:0px 0px 3px 3px whitesmoke;
+  overflow:auto;
+  border-radius:15px;
 }
+.wrap{
+  display: flex;
+  flex-direction: column;
+  width:100vw;
+  height:100vh;
+  align-items: center;
+}
+
+.main-input{
+  width:25vw;
+  height:6vh;
+  padding-left:20px
+}
+.add-button{
+  width:90px;
+  height:35px;
+  margin-top:20px;
+}
+.main-text{
+  font-size:25px;
+}
+.checked-box{
+  width:50px;
+  height:35px;
+  margin-top:10px;
+}
+.list-wrap{
+  width:500px;
+  height:60px;
+  border: 1px solid;
+  margin:30px;
+  }
+
+
 </style>
