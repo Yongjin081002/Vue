@@ -7,6 +7,6 @@
 
 <template>
     <div>
-      <Ref />
+      <Shopping />
     </div>
 </template>
