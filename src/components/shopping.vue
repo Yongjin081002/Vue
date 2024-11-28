@@ -67,7 +67,10 @@ export default {
     },
     // 항목 삭제
     removeItem(index) {
-      this.shoppingList.splice(index, 1); // 지정한 인덱스에서 항목 삭제
+      
+      if(confirm('정말 삭제하시겠습니까?')){
+        this.shoppingList.splice(index, 1) // 지정한 인덱스에서 항목 삭제
+      }
     },
     // 완료 상태 토글
     toggleComplete(index) {
@@ -125,9 +128,10 @@ export default {
   font-size:25px;
 }
 .checked-box{
-  width:50px;
+  width:34px;
   height:35px;
   margin-top:10px;
+  margin-right:100px;
 }
 .list-wrap{
   width:500px;
