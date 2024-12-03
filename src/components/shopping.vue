@@ -1,6 +1,11 @@
+<script setup>
+
+</script>
+
 <template>
   <div class="wrap">
     <h1>쇼핑 목록</h1>
+    <h1>{{ date_result }}</h1>
     
     <!-- 새 항목 추가 -->
     <input class="main-input" v-model="newItem" placeholder="새로운 항목 입력" />
@@ -15,6 +20,7 @@
     <!-- 리스트 렌더링 -->
     <ul class="Ul">
       <li v-for="(item, index) in shoppingList" :key="index" class='list-wrap'>
+        
           <input
             type="checkbox"
             :checked="item.isCompleted"
@@ -37,6 +43,8 @@
             <span v-else>(미완료)</span>
             <button @click="removeItem(index)">삭제</button>
             <button @click="startEditing(index)">수정</button>
+          
+           
       
         </template>
 
@@ -53,6 +61,15 @@ export default {
       newItem: "", // 새로 추가할 항목
     };
   },
+
+  computed:{
+    date_result() {
+      const now = new Date();
+      const pad = (n) => (n < 10 ? "0" + n : n);
+      return `${pad(now.getHours())}:${pad(now.getMinutes())}`;
+    }
+  },
+  
   methods: {
     // 항목 추가
     addItem() {
